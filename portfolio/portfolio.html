@@ -23,6 +23,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 <style>
   :root {
     --bg: #15183D;
+    --mouse-x: -9999px;
+    --mouse-y: -9999px;
     --bg-deep: #0b0d28;
     --fg: #F5F1E8;
     --fg-strong: #FBF9F2;
@@ -43,6 +45,27 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   }
 
   * { box-sizing: border-box; }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      700px circle at var(--mouse-x) var(--mouse-y),
+      rgba(120, 100, 255, 0.12) 0%,
+      rgba(80,  60, 200, 0.06) 40%,
+      transparent 70%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before { display: none; }
+  }
 
   html, body {
     margin: 0;
@@ -1395,7 +1418,6 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </style>
 </head>
 <body>
-<canvas id="dot-grid" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35;"></canvas>
 
 <div class="container">
 
@@ -2352,60 +2374,14 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </script>
 
 <script>
-(function() {
-  var canvas = document.getElementById('dot-grid');
-  if (!canvas) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ctx = canvas.getContext('2d');
-  var mouse = { x: -9999, y: -9999 };
-  var dots = [];
-  var DOT_SPACING = 28;
-  var DOT_RADIUS = 1.2;
-  var INFLUENCE_RADIUS = 120;
-  var cols, rows;
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    buildGrid();
-  }
-
-  function buildGrid() {
-    dots = [];
-    cols = Math.ceil(canvas.width / DOT_SPACING) + 1;
-    rows = Math.ceil(canvas.height / DOT_SPACING) + 1;
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols; c++) {
-        dots.push({ x: c * DOT_SPACING, y: r * DOT_SPACING });
-      }
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (var i = 0; i < dots.length; i++) {
-      var d = dots[i];
-      var dx = d.x - mouse.x;
-      var dy = d.y - mouse.y;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      var alpha = dist < INFLUENCE_RADIUS
-        ? 0.12 + (1 - dist / INFLUENCE_RADIUS) * 0.55
-        : 0.12;
-      ctx.beginPath();
-      ctx.arc(d.x, d.y, DOT_RADIUS, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(245,241,232,' + alpha + ')';
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('mouseleave', function() { mouse.x = -9999; mouse.y = -9999; });
-
-  resize();
-  draw();
-})();
+  window.addEventListener('mousemove', function(e) {
+    document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+    document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+  });
+  window.addEventListener('mouseleave', function() {
+    document.documentElement.style.setProperty('--mouse-x', '-9999px');
+    document.documentElement.style.setProperty('--mouse-y', '-9999px');
+  });
 </script>
 
 </body>
