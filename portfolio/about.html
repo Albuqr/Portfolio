@@ -10,8 +10,10 @@
 
 <style>
   :root {
-    --bg: #0E2A5A;
-    --bg-deep: #061942;
+    --bg: #15183D;
+    --bg-deep: #0b0d28;
+    --mouse-x: -9999px;
+    --mouse-y: -9999px;
     --fg: #F5F1E8;
     --fg-strong: #FBF9F2;
     --fg-muted: rgba(245, 241, 232, 0.74);
@@ -32,15 +34,31 @@
 
   * { box-sizing: border-box; }
 
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      700px circle at var(--mouse-x) var(--mouse-y),
+      rgba(120, 100, 255, 0.12) 0%,
+      rgba(80,  60, 200, 0.06) 40%,
+      transparent 70%
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before { display: none; }
+  }
+
   html, body {
     margin: 0;
     padding: 0;
     background-color: var(--bg);
-    background-image:
-      linear-gradient(rgba(245, 241, 232, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245, 241, 232, 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
-    background-attachment: fixed;
     color: var(--fg);
     font-family: var(--font-sans);
     font-size: 16px;
@@ -62,7 +80,7 @@
   a .arr { display: inline-block; transition: transform .15s ease; margin-left: 2px; }
   a:hover .arr { transform: translate(2px, -2px); }
 
-  .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); position: relative; z-index: 1; }
   section { padding: 80px 0; }
 
   /* topbar */
@@ -76,6 +94,8 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--fg-muted);
+    position: relative;
+    z-index: 1;
   }
   .topbar .mark { color: var(--fg); letter-spacing: 0.14em; }
   .topbar nav { display: flex; gap: 28px; }
@@ -986,6 +1006,17 @@
       });
     });
   })();
+</script>
+
+<script>
+  window.addEventListener('mousemove', function(e) {
+    document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+    document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+  });
+  window.addEventListener('mouseleave', function() {
+    document.documentElement.style.setProperty('--mouse-x', '-9999px');
+    document.documentElement.style.setProperty('--mouse-y', '-9999px');
+  });
 </script>
 </body>
 </html>
