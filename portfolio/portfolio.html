@@ -7,12 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <script>
 /* Tweakable defaults — host can rewrite this JSON on disk */
 window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
-  "bg": "#0E2A5A",
+  "bg": "#15183D",
   "fg": "#F5F1E8",
   "accent": "#B98A3F",
   "heroLayout": "split",
@@ -24,8 +22,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 
 <style>
   :root {
-    --bg: #0E2A5A;
-    --bg-deep: #061942;
+    --bg: #15183D;
+    --bg-deep: #0b0d28;
     --fg: #F5F1E8;
     --fg-strong: #FBF9F2;
     --fg-muted: rgba(245, 241, 232, 0.74);
@@ -50,11 +48,6 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     margin: 0;
     padding: 0;
     background-color: var(--bg);
-    background-image:
-      linear-gradient(rgba(245, 241, 232, 0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(245, 241, 232, 0.045) 1px, transparent 1px);
-    background-size: 32px 32px;
-    background-attachment: fixed;
     color: var(--fg);
     font-family: var(--font-sans);
     font-size: 16px;
@@ -81,6 +74,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     max-width: var(--container);
     margin: 0 auto;
     padding: 0 var(--gutter);
+    position: relative;
+    z-index: 1;
   }
 
   .hairline { border: none; border-top: 1px solid var(--rule); margin: 0; }
@@ -99,6 +94,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--fg-muted);
+    position: relative;
+    z-index: 1;
   }
   .topbar .mark {
     color: var(--fg);
@@ -117,94 +114,142 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   /* ───── hero ───── */
   .hero {
     display: grid;
-    grid-template-columns: 1fr 240px;
-    gap: 72px;
+    grid-template-columns: 1fr auto;
     align-items: start;
-    padding: 80px 0 96px;
+    gap: clamp(2rem, 6vw, 6rem);
+    padding-top: clamp(3rem, 7vw, 5.5rem);
+    padding-bottom: clamp(3rem, 7vw, 5.5rem);
+    position: relative;
+    z-index: 1;
   }
 
-  .identity {
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    column-gap: 28px;
-    row-gap: 14px;
-    align-items: baseline;
-    margin-bottom: 56px;
-  }
-  .identity dt {
+  .hero__status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(245, 241, 232, 0.15);
+    border-radius: 999px;
+    padding: 5px 14px;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--fg-faint);
-    font-weight: 500;
+    font-size: 12px;
+    color: rgba(245, 241, 232, 0.75);
+    background: rgba(245, 241, 232, 0.05);
+    margin-bottom: 24px;
+    width: fit-content;
   }
-  .identity dd {
-    margin: 0;
-    font-size: 15.5px;
-    color: var(--fg);
-    line-height: 1.5;
+  .hero__status-pill strong {
+    color: #F5F1E8;
+    font-weight: 600;
   }
-  .identity .name-row dd {
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: -0.005em;
-    color: var(--fg-strong);
-  }
-
-  .status-dot {
-    display: inline-block;
+  .hero__status-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--accent-bright);
-    box-shadow: 0 0 0 0 rgba(15, 38, 89, 0.55);
-    margin-right: 10px;
-    vertical-align: 1px;
-    animation: pulse 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: #4ade80;
+    flex-shrink: 0;
+    animation: dot-pulse 2.4s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(15, 38, 89, 0.55); }
-    50%      { box-shadow: 0 0 0 6px rgba(15, 38, 89, 0); }
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
   }
 
-  .hero-statement {
-    font-size: 26px;
-    line-height: 1.38;
-    letter-spacing: -0.015em;
-    font-weight: 400;
-    max-width: 620px;
-    margin: 0 0 28px;
-    text-wrap: pretty;
-    color: var(--fg-strong);
-  }
-  .hero-statement em {
-    font-style: normal;
-    color: var(--fg-muted);
-  }
-
-  .hero-cta {
+  .hero__name {
     font-family: var(--font-sans);
-    font-size: 15px;
-    color: var(--fg);
-    border-bottom: 1px solid var(--fg);
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: #F5F1E8;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.025em;
   }
-  .hero-cta:hover { color: var(--accent-bright); border-bottom-color: var(--accent-bright); }
+  .hero__role {
+    font-family: var(--font-sans);
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    font-weight: 400;
+    color: rgba(245, 241, 232, 0.55);
+    margin: 0 0 18px 0;
+  }
+  .hero__location {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: rgba(245, 241, 232, 0.45);
+    margin: 0 0 20px 0;
+    letter-spacing: 0.02em;
+  }
+  .hero__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+  }
+  .hero__stack li {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border: 1px solid rgba(245, 241, 232, 0.18);
+    border-radius: 5px;
+    color: rgba(245, 241, 232, 0.65);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .hero__stack li:hover {
+    border-color: rgba(245, 241, 232, 0.4);
+    color: rgba(245, 241, 232, 0.9);
+  }
+  .hero__statement {
+    font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+    line-height: 1.65;
+    color: rgba(245, 241, 232, 0.85);
+    max-width: 52ch;
+    margin: 0 0 32px 0;
+  }
+  .hero__cta {
+    display: inline-block;
+    padding: 12px 22px;
+    background: #F5F1E8;
+    color: #140066;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    transition: opacity 0.15s;
+  }
+  .hero__cta:hover { opacity: 0.88; border-bottom: none; }
 
-  .portrait {
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: var(--bg-deep);
-    justify-self: end;
-    align-self: start;
-    margin-top: 24px;
+  .hero__right {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 8px;
   }
-  .portrait image-slot {
-    width: 240px;
-    height: 240px;
+  .hero__photo-wrap {
+    width: clamp(200px, 24vw, 340px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 16px;
+    flex-shrink: 0;
+  }
+  .hero__photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
     display: block;
+    border-radius: 16px;
+  }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 2rem; }
+    .hero__right { order: -1; }
+    .hero__photo-wrap { width: 120px; }
   }
 
   /* ───── section headers ───── */
@@ -335,6 +380,8 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     border-bottom: 1px solid var(--rule);
     padding: 48px 0 52px;
     display: block;
+    position: relative;
+    z-index: 1;
   }
   .featured-meta {
     font-family: var(--font-mono);
@@ -1348,6 +1395,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 </style>
 </head>
 <body>
+<canvas id="dot-grid" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35;"></canvas>
 
 <div class="container">
 
@@ -1364,42 +1412,88 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
   </header>
 
   <!-- ─── hero ─── -->
-  <section class="hero" data-screen-label="01 Hero">
-    <div>
-      <dl class="identity">
-        <div class="name-row" style="display:contents;">
-          <dt>NAME</dt>
-          <dd>João Pedro Castro Albuquerque</dd>
-        </div>
-        <dt>ROLE</dt>
-        <dd>Data &amp; Analytics Engineer</dd>
+  <header class="hero" id="hero" data-screen-label="01 Hero">
+    <div class="hero__left">
 
-        <dt>BASED</dt>
-        <dd>Brazil · UTC−3 · open to EU relocation</dd>
+      <div class="hero__status-pill">
+        <span class="hero__status-dot"></span>
+        <span><strong>Available</strong> &nbsp;·&nbsp; EU remote</span>
+      </div>
 
-        <dt>STACK</dt>
-        <dd>Python · SQL · dbt · Airflow · BigQuery · Kafka · GCP</dd>
+      <h1 class="hero__name">João Pedro Albuquerque</h1>
+      <p class="hero__role">Data &amp; Analytics Engineer</p>
 
-        <dt>STATUS</dt>
-        <dd><span class="status-dot" aria-hidden="true"></span>Available · EU remote or on-site</dd>
-      </dl>
-
-      <p class="hero-statement">
-        I build production data infrastructure. Five live systems
-        — from a factory lakehouse on BigQuery + dbt + Airflow
-        to a multi-agent incident platform.
-        <em>Each is deployed, monitored, documented.</em>
+      <p class="hero__location">
+        🌐 Brazil &nbsp;·&nbsp; UTC−3 &nbsp;·&nbsp;
+        EU business hours overlap
       </p>
 
-      <a class="hero-cta" href="#contact">→ get in touch</a>
+      <ul class="hero__stack">
+        <li>
+          <img src="https://cdn.simpleicons.org/python/F5F1E8"
+               width="13" height="13" alt="">
+          Python
+        </li>
+        <li>
+          <svg width="13" height="13" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor"
+               stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+          </svg>
+          SQL
+        </li>
+        <li>
+          <img src="https://cdn.simpleicons.org/dbt/F5F1E8"
+               width="13" height="13" alt="">
+          dbt
+        </li>
+        <li>
+          <img src="https://cdn.simpleicons.org/apacheairflow/F5F1E8"
+               width="13" height="13" alt="">
+          Airflow
+        </li>
+        <li>
+          <img src="https://cdn.simpleicons.org/googlebigquery/F5F1E8"
+               width="13" height="13" alt="">
+          BigQuery
+        </li>
+        <li>
+          <img src="https://cdn.simpleicons.org/apachekafka/F5F1E8"
+               width="13" height="13" alt="">
+          Kafka
+        </li>
+        <li>
+          <img src="https://cdn.simpleicons.org/googlecloud/F5F1E8"
+               width="13" height="13" alt="">
+          GCP
+        </li>
+      </ul>
+
+      <p class="hero__statement">
+        I build production data infrastructure. Five live systems —
+        from a factory lakehouse on BigQuery + dbt + Airflow to a
+        multi-agent incident platform. Each is deployed, monitored,
+        and documented.
+      </p>
+
+      <a href="#contact" class="hero__cta">
+        Contact // get in touch →
+      </a>
+
     </div>
 
-    <div class="portrait">
-      <img src="assets/screenshots/me.jpeg"
-           alt="João Pedro Castro Albuquerque"
-           style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+    <div class="hero__right">
+      <div class="hero__photo-wrap">
+        <img src="assets/screenshots/me.jpeg"
+             alt="João Pedro Castro Albuquerque"
+             class="hero__photo-img"
+             loading="eager">
+      </div>
     </div>
-  </section>
+  </header>
 
   <!-- ─── selected work ─── -->
   <section id="work" data-screen-label="02 Selected Work">
@@ -1870,11 +1964,11 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
       <button class="carousel-nav prev" type="button" aria-label="Previous">‹</button>
       <button class="carousel-nav next" type="button" aria-label="Next">›</button>
 
-      <!-- TODO: populate note cards — add issuer, date, title, page count, and PDF download link for each card (note-1 through note-7) -->
+      <!-- TODO: add cover images to assets/notes/covers/ (note-1.jpg through note-5.jpg) — screenshot each PDF's first page -->
       <div class="carousel-track" id="notes-track">
 
         <article class="note-card">
-          <div class="note-cover"><canvas class="pdf-canvas" data-pdf="assets/notes/AI Capabilities and Limitations.pdf" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;"></canvas></div>
+          <div class="note-cover"><img src="assets/screenshots/aicapabilitiesandlimitations.png" alt="AI Capabilities and Limitations cover" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:rgba(10,22,60,0.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;letter-spacing:0.1em;color:rgba(10,22,60,0.4);text-transform:uppercase;\'>PDF</div>'"></div>
           <div class="note-meta"><span>Anthropic</span><span>2025</span></div>
           <p class="note-title">AI Capabilities and Limitations</p>
           <p class="note-sub">Anthropic AI Fluency cert notes</p>
@@ -1882,7 +1976,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         </article>
 
         <article class="note-card">
-          <div class="note-cover"><canvas class="pdf-canvas" data-pdf="assets/notes/dataengineeringconcepts.pdf" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;"></canvas></div>
+          <div class="note-cover"><img src="assets/screenshots/dataengineeringconcepts.png" alt="Data Engineering Concepts cover" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:rgba(10,22,60,0.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;letter-spacing:0.1em;color:rgba(10,22,60,0.4);text-transform:uppercase;\'>PDF</div>'"></div>
           <div class="note-meta"><span>Data Engineering</span><span>2025</span></div>
           <p class="note-title">Data Engineering Concepts</p>
           <p class="note-sub">Core concepts and patterns</p>
@@ -1890,7 +1984,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         </article>
 
         <article class="note-card">
-          <div class="note-cover"><canvas class="pdf-canvas" data-pdf="assets/notes/SAP Spend Management Notes.pdf" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;"></canvas></div>
+          <div class="note-cover"><img src="assets/screenshots/sapspendmanagement.png" alt="SAP Spend Management cover" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:rgba(10,22,60,0.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;letter-spacing:0.1em;color:rgba(10,22,60,0.4);text-transform:uppercase;\'>PDF</div>'"></div>
           <div class="note-meta"><span>SAP</span><span>2025</span></div>
           <p class="note-title">SAP Spend Management</p>
           <p class="note-sub">Spend Management and Gateway notes</p>
@@ -1898,7 +1992,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         </article>
 
         <article class="note-card">
-          <div class="note-cover"><canvas class="pdf-canvas" data-pdf="assets/notes/SAPdatascience1.pdf" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;"></canvas></div>
+          <div class="note-cover"><img src="assets/screenshots/sapdatascience1.png" alt="SAP Data Science Part 1 cover" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:rgba(10,22,60,0.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;letter-spacing:0.1em;color:rgba(10,22,60,0.4);text-transform:uppercase;\'>PDF</div>'"></div>
           <div class="note-meta"><span>SAP</span><span>2025</span></div>
           <p class="note-title">SAP Data Science · Part 1</p>
           <p class="note-sub">Data science fundamentals</p>
@@ -1906,7 +2000,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         </article>
 
         <article class="note-card">
-          <div class="note-cover"><canvas class="pdf-canvas" data-pdf="assets/notes/SAPdatascience2.pdf" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;"></canvas></div>
+          <div class="note-cover"><img src="assets/screenshots/sapdatascience2.png" alt="SAP Data Science Part 2 cover" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:2px;" onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:rgba(10,22,60,0.12);display:flex;align-items:center;justify-content:center;font-family:monospace;font-size:10px;letter-spacing:0.1em;color:rgba(10,22,60,0.4);text-transform:uppercase;\'>PDF</div>'"></div>
           <div class="note-meta"><span>SAP</span><span>2025</span></div>
           <p class="note-title">SAP Data Science · Part 2</p>
           <p class="note-sub">Applied data science on SAP</p>
@@ -1946,7 +2040,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
         </div>
         <div class="pb-row">
           <span class="pb-key">README</span>
-          <span class="pb-val">First, then the code.</span>
+          <span class="pb-val">README last — written once the system is understood, not before.</span>
         </div>
         <div class="pb-row">
           <span class="pb-key">SCOPE</span>
@@ -2198,7 +2292,7 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
     }
 
     const palettes = [
-      { name: 'Royal Gold',     bg: '#0E2A5A', fg: '#F5F1E8', accent: '#B98A3F' },
+      { name: 'Royal Gold',     bg: '#15183D', fg: '#F5F1E8', accent: '#B98A3F' },
       { name: 'British Racing', bg: '#002A17', fg: '#F5F1E8', accent: '#B4863E' },
       { name: 'Bourbon Leather',bg: '#1A1410', fg: '#F2E8D5', accent: '#C99060' },
       { name: 'Midnight Ink',   bg: '#0C1A2E', fg: '#E8EAF0', accent: '#6B8FB8' },
@@ -2259,37 +2353,58 @@ window.__TWEAKS__ = /*EDITMODE-BEGIN*/{
 
 <script>
 (function() {
-  if (typeof pdfjsLib === 'undefined') return;
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var canvas = document.getElementById('dot-grid');
+  if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ctx = canvas.getContext('2d');
+  var mouse = { x: -9999, y: -9999 };
+  var dots = [];
+  var DOT_SPACING = 28;
+  var DOT_RADIUS = 1.2;
+  var INFLUENCE_RADIUS = 120;
+  var cols, rows;
 
-  document.querySelectorAll('.pdf-canvas').forEach(function(canvas) {
-    var pdfPath = canvas.dataset.pdf;
-    pdfjsLib.getDocument(pdfPath).promise.then(function(pdf) {
-      return pdf.getPage(1);
-    }).then(function(page) {
-      var container = canvas.parentElement;
-      var containerWidth = container.offsetWidth || 260;
-      var viewport = page.getViewport({ scale: 1 });
-      var scale = containerWidth / viewport.width;
-      var scaled = page.getViewport({ scale: scale });
-      canvas.width = scaled.width;
-      canvas.height = scaled.height;
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      return page.render({
-        canvasContext: canvas.getContext('2d'),
-        viewport: scaled
-      }).promise;
-    }).catch(function(err) {
-      console.warn('PDF preview failed for ' + pdfPath, err);
-      canvas.parentElement.innerHTML =
-        '<div style="width:100%;height:100%;background:rgba(10,22,60,0.12);' +
-        'display:flex;align-items:center;justify-content:center;' +
-        'font-family:monospace;font-size:10px;letter-spacing:0.1em;' +
-        'color:rgba(10,22,60,0.4);text-transform:uppercase;">PDF</div>';
-    });
-  });
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    buildGrid();
+  }
+
+  function buildGrid() {
+    dots = [];
+    cols = Math.ceil(canvas.width / DOT_SPACING) + 1;
+    rows = Math.ceil(canvas.height / DOT_SPACING) + 1;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        dots.push({ x: c * DOT_SPACING, y: r * DOT_SPACING });
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var dx = d.x - mouse.x;
+      var dy = d.y - mouse.y;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var alpha = dist < INFLUENCE_RADIUS
+        ? 0.12 + (1 - dist / INFLUENCE_RADIUS) * 0.55
+        : 0.12;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, DOT_RADIUS, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(245,241,232,' + alpha + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', function() { mouse.x = -9999; mouse.y = -9999; });
+
+  resize();
+  draw();
 })();
 </script>
 
