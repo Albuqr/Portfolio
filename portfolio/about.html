@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — João Pedro Castro Albuquerque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0E2A5A;
+    --bg-deep: #061942;
+    --fg: #F5F1E8;
+    --fg-strong: #FBF9F2;
+    --fg-muted: rgba(245, 241, 232, 0.74);
+    --fg-faint: rgba(245, 241, 232, 0.46);
+    --rule: rgba(245, 241, 232, 0.14);
+    --rule-strong: rgba(245, 241, 232, 0.22);
+    --accent: #B98A3F;
+    --accent-bright: #E0B25F;
+    --gold: #D4A24C;
+    --gold-soft: rgba(212, 162, 76, 0.14);
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    --container: 1120px;
+    --gutter: 56px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(245, 241, 232, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 241, 232, 0.045) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection { background: var(--accent-bright); color: var(--bg-deep); }
+
+  a {
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule-strong);
+    transition: color .15s ease, border-color .15s ease;
+  }
+  a:hover { color: var(--accent-bright); border-bottom-color: var(--accent-bright); }
+  a .arr { display: inline-block; transition: transform .15s ease; margin-left: 2px; }
+  a:hover .arr { transform: translate(2px, -2px); }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+  section { padding: 80px 0; }
+
+  /* topbar */
+  .topbar {
+    padding: 28px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+  .topbar .mark { color: var(--fg); letter-spacing: 0.14em; }
+  .topbar nav { display: flex; gap: 28px; }
+  .topbar nav a { border-bottom: none; color: var(--fg-muted); }
+  .topbar nav a:hover { color: var(--accent-bright); }
+  .topbar nav a.active { color: var(--fg); }
+
+  /* section label */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    font-weight: 500;
+    margin: 0 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::before {
+    content: "+";
+    font-size: 16px;
+    color: var(--fg-muted);
+    line-height: 1;
+    margin-right: -4px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+  /* ─── hero / bio ─── */
+  .bio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 64px 0 96px;
+    align-items: start;
+  }
+  .bio-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    margin-bottom: 24px;
+  }
+  .bio h1 {
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+    margin: 0 0 28px;
+    text-wrap: balance;
+    color: var(--fg-strong);
+  }
+  .bio-h1-quiet {
+    display: inline;
+    color: var(--fg-muted);
+    font-weight: 400;
+  }
+  .bio-signoff {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 36px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--fg-muted);
+    letter-spacing: 0.04em;
+  }
+  .bio-signoff-line {
+    width: 40px;
+    height: 1px;
+    background: var(--rule-strong);
+  }
+  .bio-body {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--fg);
+    max-width: 56ch;
+    margin: 0 0 18px;
+    text-wrap: pretty;
+  }
+  .bio-body em { font-style: normal; color: var(--fg-muted); }
+  .bio-body strong { color: var(--fg); font-weight: 500; }
+  .bio-portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--bg-deep);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bio-portrait image-slot { width: 100%; height: 100%; display: block; }
+
+  /* ─── facts strip ─── */
+  .facts-wrap {
+    background: #F5F1E8;
+    color: #1A2547;
+    padding: 32px;
+    border-radius: 3px;
+    position: relative;
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+    background-image:
+      linear-gradient(rgba(10, 22, 60, 0.085) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 22, 60, 0.085) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    overflow: hidden;
+  }
+  .facts-wrap::before,
+  .facts-wrap::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(10, 22, 60, 0.3);
+  }
+  .facts-wrap::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+  .facts-wrap::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: transparent;
+    border: none;
+    position: relative;
+    z-index: 1;
+  }
+  .fact {
+    background: transparent;
+    padding: 12px 28px;
+    border-right: 1px solid rgba(10, 22, 60, 0.18);
+  }
+  .fact:last-child { border-right: none; }
+  .fact-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4A5980;
+    margin-bottom: 8px;
+  }
+  .fact-value {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: #0A1840;
+    line-height: 1.4;
+  }
+
+  /* ─── timeline ─── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 36px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .tl-date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-faint);
+    letter-spacing: 0.04em;
+  }
+  .tl-title {
+    font-size: 16px;
+    color: var(--fg-strong);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .tl-org {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--fg-muted);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .tl-desc {
+    font-size: 14px;
+    color: var(--fg-muted);
+    line-height: 1.55;
+    margin-top: 6px;
+    max-width: 60ch;
+  }
+
+  /* ─── certifications ─── */
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .filter-btn:hover { color: var(--fg); border-color: var(--fg-muted); }
+  .filter-btn.active { color: var(--accent-bright); border-color: var(--accent-bright); }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .cert {
+    background: var(--bg);
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 250px;
+    transition: background .2s ease;
+  }
+  .cert:hover { background: rgba(245, 241, 232, 0.022); }
+  .cert-badge {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-deep);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .cert-badge image-slot { width: 100%; height: 100%; display: block; }
+  .cert .issuer {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+  .cert .cname {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--fg-strong);
+    flex: 1;
+  }
+  .cert .crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .cert .yr { color: var(--fg-faint); }
+  .cert .verify { color: var(--fg-muted); border-bottom: none; }
+  .cert .verify:hover { color: var(--accent-bright); }
+  .cert.hidden { display: none; }
+
+  /* ─── how I work ─── */
+  .how {
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .how-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+    align-items: baseline;
+  }
+  .how-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    font-weight: 500;
+  }
+  .how-body {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--fg);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .how-body .quiet { color: var(--fg-muted); }
+
+  /* ─── paper note (cream inset, breaks the green wall) ─── */
+  .paper-note {
+    background: #F5F1E8;
+    color: #1A2547;
+    padding: 56px 56px 48px;
+    border-radius: 3px;
+    max-width: 100%;
+    position: relative;
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+    background-image:
+      linear-gradient(rgba(10, 22, 60, 0.085) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 22, 60, 0.085) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+    overflow: hidden;
+  }
+  .paper-note::before,
+  .paper-note::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(10, 22, 60, 0.3);
+  }
+  .paper-note::before {
+    top: 14px; left: 14px;
+    border-right: none; border-bottom: none;
+  }
+  .paper-note::after {
+    bottom: 14px; right: 14px;
+    border-left: none; border-top: none;
+  }
+
+  /* off the clock grid (inside paper-note) */
+  .off-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: start;
+    gap: 24px 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .off-item { padding-bottom: 32px; }
+  .off-item-wide { grid-column: 1 / -1; }
+  .off-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #4A5980;
+    margin-bottom: 8px;
+  }
+  .off-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #0A1840;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .off-body em { font-style: italic; color: #0A1840; }
+  .off-body .quiet { color: rgba(13, 31, 21, 0.65); }
+
+  @media (max-width: 900px) {
+    .paper-note { padding: 36px 24px 28px; }
+    .off-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ─── CTA back ─── */
+  .back-cta {
+    border-top: 1px solid var(--rule);
+    padding: 56px 0 96px;
+    text-align: center;
+  }
+  .back-cta-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: 14px;
+  }
+  .back-cta-title {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin: 0 0 18px;
+    color: var(--fg-strong);
+    text-wrap: balance;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .back-cta-links {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .back-cta-links a { border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; }
+
+  /* footer */
+  footer {
+    padding: 40px 0 56px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--fg-faint);
+  }
+
+  /* scroll performance */
+  * { -webkit-overflow-scrolling: touch; }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    :root { --gutter: 28px; }
+    .topbar nav { gap: 18px; }
+    .bio {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 36px 0 56px;
+    }
+    .bio h1 { font-size: 32px; }
+    .facts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .fact { padding: 14px 18px; }
+    .fact:nth-child(2) { border-right: none; }
+    .fact:nth-child(1),
+    .fact:nth-child(2) { border-bottom: 1px solid rgba(10, 22, 60, 0.18); }
+    .facts-wrap { padding: 20px; }
+    .tl-row { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+    .cert-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .how-item { grid-template-columns: 1fr; gap: 6px; }
+    .back-cta-links { flex-direction: column; gap: 14px; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- topbar -->
+  <header class="topbar">
+    <a href="portfolio.html" class="mark" style="border-bottom:none;">JPCA / PORTFOLIO 2026</a>
+    <nav>
+      <a href="portfolio.html#work">Work</a>
+      <a href="portfolio.html#writing">Notes</a>
+      <a href="about.html" class="active">About</a>
+      <a href="portfolio.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- bio -->
+  <section class="bio" data-screen-label="01 Bio">
+    <div>
+      <div class="bio-eyebrow">About</div>
+      <h1>I'm João. I build data systems.</h1>
+      <p class="bio-body">
+        Based in Hortolândia, a town in São Paulo state just east
+        of Campinas. I study Análise e Desenvolvimento de Sistemas
+        at UNASP and work as a Digital Solutions Intern at
+        Instituto Educathon. The five systems on this website are
+        all in production. Each one started as a real problem
+        someone needed solved.
+      </p>
+      <p class="bio-body">
+        My father spent years on a factory floor and always pushed
+        me toward tech — he could fix anything electronic, and I
+        inherited the curiosity. I learned English from YouTube,
+        mostly computer building videos. Got into programming
+        through game development, realized it wasn't the right fit
+        yet, and finished high school with a technician degree in
+        IT and an international diploma through Griggs University.
+        Data engineering followed naturally — it sits at the
+        intersection of systems I can see running and problems
+        that actually need solving. I've since gone deep on the
+        fundamentals: data modeling, stream processing, warehouse
+        architecture, applied ML. The certifications and projects
+        on this site are the evidence.
+      </p>
+      <p class="bio-body">
+        I'm looking for a role in Europe — the Netherlands in
+        particular, though the right team matters more than the
+        postcode. I want somewhere that treats data infrastructure
+        as engineering and has real problems to work on. I have
+        enough theoretical foundation. What I need now is the
+        environment to use it properly, alongside engineers who
+        will push back when I'm wrong.
+      </p>
+      <p class="bio-body">
+        That's most of it. The rest is in the work.
+      </p>
+
+      <div class="bio-signoff">
+        <span class="bio-signoff-line"></span>
+        <span class="bio-signoff-text">— Albuquerque</span>
+      </div>
+    </div>
+    <div class="bio-portrait">
+      <img src="assets/screenshots/me.jpeg"
+           alt="João Pedro Castro Albuquerque"
+           style="width:100%;height:100%;object-fit:cover;">
+    </div>
+  </section>
+
+  <!-- facts -->
+  <section style="padding-top: 0;">
+    <div class="facts-wrap">
+      <div class="facts">
+        <div class="fact">
+          <div class="fact-label">Born</div>
+          <div class="fact-value">2007 · Hortolândia, SP</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Languages</div>
+          <div class="fact-value">PT native · EN fluent</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Live systems</div>
+          <div class="fact-value">5 in production</div>
+        </div>
+        <div class="fact">
+          <div class="fact-label">Target</div>
+          <div class="fact-value">Europe — NL, DE, PT, remote</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- timeline -->
+  <section data-screen-label="02 Background">
+    <h2 class="section-label">Background</h2>
+    <div class="timeline">
+
+      <div class="tl-row">
+        <div class="tl-date">2025 — now</div>
+        <div>
+          <div class="tl-title">Digital Solutions Intern · Instituto Educathon</div>
+          <div class="tl-org">Hortolândia, SP · contractor</div>
+          <p class="tl-desc">Built the Factory Data Platform as a proof of concept — modeling what the factory's data infrastructure could look like. Lakehouse, real-time Kafka monitor, Platform API with dependency inversion. The B2B Pipeline: 86 businesses processed, 34% contact rate on first run. Represented Educathon at the Taiwan Trade Mission to Latin America 2025 (TAITRA, São Paulo). Also delivered a comparative ERP analysis — 834 lines of Python, six analysis pages, four verified PDFs — that changed a client's procurement decision.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-date">May 2026</div>
+        <div>
+          <div class="tl-title">🥇 1st place — Hackathon IA Descomplicada</div>
+          <div class="tl-org">UNASP × IBM · CRISIS multi-agent platform</div>
+          <p class="tl-desc">Built and shipped a working multi-agent incident response system on IBM watsonX Orchestrate. Agents handle real routing decisions — not a demo workflow. The trophy is on my desk, slightly crooked.</p>
+          <!-- TODO: add hackathon details (team size, judging criteria, etc.) -->
+        </div>
+      </div>
+
+<div class="tl-row">
+        <div class="tl-date">2024 — now</div>
+        <div>
+          <div class="tl-title">Self-directed study</div>
+          <div class="tl-org">IBM · SAP · Anthropic · Udemy · Alura</div>
+          <p class="tl-desc">Certifications across data engineering, AI, cloud, and enterprise software. Books on systems design and warehouse architecture. Still going.</p>
+        </div>
+      </div>
+
+      <div class="tl-row">
+        <div class="tl-date">2024 – 2025</div>
+        <div>
+          <div class="tl-title">High School — technician degree in IT</div>
+          <div class="tl-org">Hortolândia, SP, Brazil</div>
+          <p class="tl-desc">Graduated with a technician degree in IT and an international diploma through Griggs University. Shipped the first production systems while finishing the last year.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- certifications -->
+  <section id="certifications" data-screen-label="03 Certifications">
+    <h2 class="section-label">Certifications · 18 issued</h2>
+
+    <div class="filters" id="cert-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="Anthropic">Anthropic</button>
+      <button class="filter-btn" data-filter="IBM">IBM</button>
+      <button class="filter-btn" data-filter="SAP">SAP</button>
+      <button class="filter-btn" data-filter="Other">Other</button>
+    </div>
+
+    <div class="cert-grid" id="cert-grid">
+
+      <!-- ANTHROPIC ×8 -->
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-ai-fluency-framework.png" loading="lazy"
+          alt="AI Fluency: Framework &amp; Foundations"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">AI Fluency: Framework &amp; Foundations</div>
+        <div class="crow"><span class="yr">Feb 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-claude-code-action.png" loading="lazy"
+          alt="Claude Code in Action"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">Claude Code in Action</div>
+        <div class="crow"><span class="yr">Mar 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-claude-101.png" loading="lazy"
+          alt="Claude 101"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">Claude 101</div>
+        <div class="crow"><span class="yr">Mar 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-ai-fluency-students.png" loading="lazy"
+          alt="AI Fluency for Students"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">AI Fluency for Students</div>
+        <div class="crow"><span class="yr">Mar 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-ai-capabilities.png" loading="lazy"
+          alt="AI Capabilities and Limitations"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">AI Capabilities and Limitations</div>
+        <div class="crow"><span class="yr">Apr 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-claude-code-101.png" loading="lazy"
+          alt="Claude Code 101"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">Claude Code 101</div>
+        <div class="crow"><span class="yr">May 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-intro-subagents.png" loading="lazy"
+          alt="Introduction to Subagents"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">Introduction to Subagents</div>
+        <div class="crow"><span class="yr">May 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Anthropic">
+        <div class="cert-badge"><img src="assets/certs/anthropic-intro-agent-skills.png" loading="lazy"
+          alt="Introduction to Agent Skills"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Anthropic</div>
+        <div class="cname">Introduction to Agent Skills</div>
+        <div class="crow"><span class="yr">May 2026</span>
+        <a class="verify" href="https://www.anthropic.com/academy" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <!-- IBM ×2 -->
+      <div class="cert" data-issuer="IBM">
+        <div class="cert-badge"><img src="assets/certs/ibm-data-fundamentals.png" loading="lazy"
+          alt="IBM Data Fundamentals"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">IBM</div>
+        <div class="cname">Data Fundamentals</div>
+        <div class="crow"><span class="yr">May 2026</span>
+        <a class="verify" href="#" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="IBM">
+        <div class="cert-badge"><img src="assets/certs/ibm-getting-started-data.png" loading="lazy"
+          alt="Getting Started with Data"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">IBM</div>
+        <div class="cname">Getting Started with Data</div>
+        <div class="crow"><span class="yr">May 2026</span>
+        <a class="verify" href="#" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <!-- SAP ×3 -->
+      <div class="cert" data-issuer="SAP">
+        <div class="cert-badge"><img src="assets/certs/sap-integration-suite.png" loading="lazy"
+          alt="SAP Integration Suite"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">SAP</div>
+        <div class="cname">Integration Suite, Managed Gateway for Spend Management</div>
+        <div class="crow"><span class="yr">Aug 2025</span>
+        <a class="verify" href="#" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="SAP">
+        <div class="cert-badge"><img src="assets/certs/sap-data-science.png" loading="lazy"
+          alt="SAP Getting Started with Data Science"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">SAP</div>
+        <div class="cname">Getting Started with Data Science</div>
+        <div class="crow"><span class="yr">Oct 2025</span>
+        <a class="verify" href="#" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="SAP">
+        <div class="cert-badge"><img src="assets/certs/sap-bw4hana.png" loading="lazy"
+          alt="SAP BW/4HANA"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">SAP</div>
+        <div class="cname">BW/4HANA — On-Premise Data Warehouse</div>
+        <div class="crow"><span class="yr">Dec 2025</span>
+        <a class="verify" href="#" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <!-- UDEMY ×6 -->
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-cloud-arch.jpg" loading="lazy"
+          alt="Cloud Computing Software Architecture Patterns"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">The Complete Cloud Computing Software Architecture Patterns</div>
+        <div class="crow"><span class="yr">Jan 2025</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-15a7e3d6-e2f7-4d54-9a7d-6e6ee863f0cf/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-data-eng-beginners.jpg" loading="lazy"
+          alt="Data Engineering for Beginners"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">Data Engineering 101: The Beginner's Guide</div>
+        <div class="crow"><span class="yr">Dec 2025</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-9387d601-4fab-48d1-82b2-221b842ee7dd/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-git-github.jpg" loading="lazy"
+          alt="Git and GitHub"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">Git e GitHub do básico ao avançado</div>
+        <div class="crow"><span class="yr">Feb 2026</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-4b1ca1dc-437c-42f8-be57-1d1e3df99b2c/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-sql-bootcamp.jpg" loading="lazy"
+          alt="SQL Bootcamp"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">The Complete SQL Bootcamp</div>
+        <div class="crow"><span class="yr">Feb 2026</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-68994641-50c0-4090-8c6a-46ab105a20f8/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-data-science.jpg" loading="lazy"
+          alt="The Data Science Course 2026"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">The Data Science Course: Complete Bootcamp 2026</div>
+        <div class="crow"><span class="yr">Feb 2026</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-b1a1100e-e29b-40d9-9b6c-994ef1bbc4b9/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/udemy-data-eng-beginners.jpg" loading="lazy"
+          alt="Data Engineering for Beginners with Python and SQL"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Udemy</div>
+        <div class="cname">Data Engineering for Beginners with Python and SQL</div>
+        <div class="crow"><span class="yr">Jan 2026</span>
+        <a class="verify" href="https://www.udemy.com/certificate/UC-634ca3d4-d695-44a2-bda0-72ca73264554/" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+      <!-- ALURA ×1 -->
+      <div class="cert" data-issuer="Other">
+        <div class="cert-badge"><img src="assets/certs/alura-imersao-dados.png" loading="lazy"
+          alt="Imersão Dados com Python II"
+          style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box;"
+          onerror="this.parentElement.style.background='rgba(245,241,232,0.04)'"></div>
+        <div class="issuer">Alura</div>
+        <div class="cname">Imersão Dados com Python II</div>
+        <div class="crow"><span class="yr">Feb 2026</span>
+        <a class="verify" href="https://cursos.alura.com.br/certificate/81c79054-ff1c-4549-9bdd-51e05227d895" target="_blank">Verify <span class="arr">↗</span></a></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- how I work -->
+  <section data-screen-label="04 How I Work">
+    <h2 class="section-label">How I work</h2>
+    <div class="how">
+      <div class="how-item">
+        <div class="how-label">Engagement</div>
+        <p class="how-body">Independent contractor or direct employee — whatever structure works for the role and the company.</p>
+      </div>
+      <div class="how-item">
+        <div class="how-label">Timezone</div>
+        <p class="how-body">Brazil, UTC−3. <span class="quiet">Strong overlap with EU business hours. I shift when something is urgent — not as a default.</span></p>
+      </div>
+      <div class="how-item">
+        <div class="how-label">Relocation</div>
+        <p class="how-body">Remote-first for now. <span class="quiet">Open to the right opportunity when the timing makes sense.</span></p>
+      </div>
+      <div class="how-item">
+        <div class="how-label">Communication</div>
+        <p class="how-body">English fluent, Portuguese native. <span class="quiet">ADRs and READMEs ship with every project. Async-first.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- off the clock -->
+  <section data-screen-label="05 Off the clock">
+    <h2 class="section-label">Off the clock</h2>
+    <!-- TODO: update "Off the clock" items as needed -->
+    <div class="paper-note">
+      <div class="off-grid">
+        <div class="off-item">
+          <div class="off-label">Currently reading</div>
+          <p class="off-body"><em>Becoming Steve Jobs</em> <span class="quiet">— Brent Schlender. On how someone actually becomes good at something, not the mythology version.</span></p>
+        </div>
+        <div class="off-item">
+          <div class="off-label">Currently building</div>
+          <p class="off-body">Exploring agentic development. <span class="quiet">Claude skills, MCP workflows, Cursor — what the actual development cycle looks like when AI is in the loop properly.</span></p>
+        </div>
+        <div class="off-item">
+          <div class="off-label">Currently watching</div>
+          <p class="off-body">Star Wars: Andor, Season 2. <span class="quiet">Does what Star Wars almost never does — treats its audience as adults. Real political tension, characters carrying the weight of their choices, and a sense that war has actual consequences for actual people. The deinfantilization of a franchise I'd mostly given up on.</span></p>
+        </div>
+        <div class="off-item">
+          <div class="off-label">Currently learning</div>
+          <p class="off-body">IBM Enterprise Data Science in Practice. <span class="quiet">Working through it alongside the cert track.</span></p>
+        </div>
+        <div class="off-item">
+          <div class="off-label">Outside the screen</div>
+          <p class="off-body">Basketball, gym, cooking, good music. <span class="quiet">In roughly that order.</span></p>
+        </div>
+        <div class="off-item" style="margin-top: -16px;">
+          <div class="off-label">Passion project</div>
+          <p class="off-body">A custom digital gauge cluster for my car. <span class="quiet">Reference points: the Lexus LFA's motorized needle sweep on startup and the Toyota Aristo 2000's analog clock-face proportions. The goal is screens that feel like instruments — not a tablet glued to the dashboard. Still in the planning stage but the aesthetic direction is locked.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- back CTA -->
+  <section class="back-cta">
+    <div class="back-cta-label">If you made it this far</div>
+    <h3 class="back-cta-title">Either we should talk, or you should see the actual work.</h3>
+    <div class="back-cta-links">
+      <a href="portfolio.html#work">← Selected work</a>
+      <a href="portfolio.html#contact">Mail me <span class="arr">↗</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <div>© 2026 João Pedro Castro Albuquerque · Hortolândia, SP, Brazil</div>
+  </footer>
+
+</div>
+
+<script src="image-slot.js"></script>
+<script>
+  // Cert filter
+  (function() {
+    const filters = document.querySelectorAll('#cert-filters .filter-btn');
+    const certs = document.querySelectorAll('#cert-grid .cert');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        certs.forEach(c => {
+          c.classList.toggle('hidden', f !== 'all' && c.dataset.issuer !== f);
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

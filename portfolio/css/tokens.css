@@ -1,0 +1,39 @@
+:root {
+  /* Colors */
+  --bg:          oklch(97% 0.008 80);
+  --surface:     oklch(94% 0.008 80);
+  --border:      oklch(88% 0.010 80);
+  --text:        oklch(15% 0.010 265);
+  --muted:       oklch(52% 0.008 265);
+  --accent:      oklch(42% 0.22 265);
+  --accent-dim:  oklch(42% 0.08 265);
+  --live:        oklch(52% 0.18 142);
+  --gold:        oklch(72% 0.16 75);
+
+  /* Typography */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+  /* Type scale */
+  --text-hero:   clamp(80px, 7vw, 96px);
+  --text-label:  13px;
+  --text-card:   20px;
+  --text-body:   18px;
+  --text-tag:    11px;
+  --text-meta:   13px;
+
+  /* Spacing */
+  --max-width:   1400px;
+  --hero-pt:     140px;
+  --hero-pb:     40px;
+  --section-gap: 100px;
+  --card-pad:    32px;
+  --card-radius: 8px;
+  --gutter:      40px;
+
+  /* Motion */
+  --ease-expo:       cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-reveal: 380ms;
+  --duration-hover:  180ms;
+}
